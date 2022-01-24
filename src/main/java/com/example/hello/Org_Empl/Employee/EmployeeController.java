@@ -1,5 +1,6 @@
 package com.example.hello.Org_Empl.Employee;
 
+import com.example.hello.Auth.Account.Account;
 import com.example.hello.Common.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -47,21 +48,13 @@ public class EmployeeController {
 
     @PutMapping("/update")
     public ApiResponse update(@RequestBody EmployeeUpdatePayload payload) {
-        try {
-//            if(orgRepository.findById(payload.getOrganisation().getId()) == null){
-//                payload.setOrganisation(orgRepository.save(payload.getOrganisation()));
-//            }
-            Employee employee = new Employee.Builder()
-                    .setEmployee_id(payload.getEmployee_id())
-                    .setRole(payload.getRole())
-                    .setAccount(payload.getAccount())
-                    .setActif(payload.isActif())
-                    .setOrganization(payload.getOrganization()).build();
-            Employee newEmployee = employeeRepository.save(employee);
-            return new ApiResponse(true, newEmployee, BASE_CODE + "create.success");
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ApiResponse(false, null, BASE_CODE + "create.error");
+        Employee employee = employeeRepository.findById(payload.getEmployee_id());
+        if(employee != null){
+            Employee newEmployee = new Employee(payload);
+            Employee freshEmployee = employeeRepository.save(newEmployee);
+            return new ApiResponse(true, freshEmployee, null);
+        } else {
+            return new ApiResponse(false, null, "404");
         }
     }
 

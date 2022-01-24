@@ -1,6 +1,7 @@
 package com.example.hello.Org_Empl.Employee;
 
 import com.example.hello.Auth.Account.Account;
+import com.example.hello.Auth.Account.AccountUpdatePayload;
 import com.example.hello.Org_Empl.Organization.Organization;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
@@ -30,7 +31,13 @@ public class Employee {
     private Organization organization;
 
 
-
+    public Employee(EmployeeUpdatePayload employee) {
+        this.employee_id = employee.getEmployee_id();
+        this.role = employee.getRole();
+        this.actif = employee.isActif();
+        this.account = employee.getAccount();
+        this.organization = employee.getOrganization();
+    }
 
     public static class Builder{
         int employee_id;

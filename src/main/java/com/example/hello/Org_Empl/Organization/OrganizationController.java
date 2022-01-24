@@ -37,20 +37,13 @@ public class OrganizationController {
 
     @PutMapping("/update")
     public ApiResponse update(@RequestBody OrganizationUpdatePayload payload) {
-        try {
-//            if(orgRepository.findById(payload.getOrganisation().getId()) == null){
-//                payload.setOrganisation(orgRepository.save(payload.getOrganisation()));
-//            }
-            Organization organization = new Organization.Builder()
-                    .setOrganization_id(payload.getOrganization_id())
-                    .setName(payload.getName())
-                    .setDescription(payload.getDescription())
-                    .setActif(payload.isActif()).build();
-            Organization newOrganization = organizationRepository.save(organization);
-            return new ApiResponse(true, newOrganization, BASE_CODE + "create.success");
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ApiResponse(false, null, BASE_CODE + "create.error");
+        Organization organization = organizationRepository.findById(payload.getOrganization_id());
+        if(organization != null){
+            Organization newOrganization = new Organization(payload);
+            Organization freshOrganization = organizationRepository.save(newOrganization);
+            return new ApiResponse(true, freshOrganization, null);
+        } else {
+            return new ApiResponse(false, null, "404");
         }
     }
 

@@ -1,5 +1,6 @@
 package com.example.hello.Org_Empl.Organization;
 
+import com.example.hello.Org_Empl.Employee.EmployeeUpdatePayload;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,6 +24,12 @@ public class Organization {
     @NotNull
     private String description;
     private boolean actif;
+
+    public Organization(OrganizationUpdatePayload organization) {
+        this.organization_id = organization.getOrganization_id();
+        this.name = organization.getName();
+        this.description = organization.getDescription();
+    }
 
     public static class Builder
     {

@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class TransactionUpdatePayload {
     private int transaction_id;
     private String type;
-    private Float amount;
+    private String amount;
     private Wallet wallet;
     private Document document;
 }

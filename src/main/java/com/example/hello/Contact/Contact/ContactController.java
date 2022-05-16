@@ -1,11 +1,14 @@
 package com.example.hello.Contact.Contact;
 
 import com.example.hello.Common.ApiResponse;
+import com.example.hello.Org_Empl.Address.Address;
+import com.example.hello.Org_Empl.Address.AddressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
 
 @CrossOrigin
 @RestController
@@ -15,6 +18,8 @@ public class ContactController {
 
     @Autowired
     ContactRepository contactRepository;
+    @Autowired
+    AddressRepository addressRepository;
 
     @GetMapping("/list")
     public ApiResponse list(){
@@ -33,13 +38,19 @@ public class ContactController {
 //                    payload.setOrganisation(orgRepository.save(payload.getOrganisation()));
 //                }
                 Contact contact = new Contact.Builder()
-                        .setAddresses(payload.getAddresses())
                         .setFirstname(payload.getFirstname())
                         .setLastname(payload.getLastname())
                         .setPhone(payload.getPhone())
                         .setEmail(payload.getEmail())
                         .build();
                 Contact newContact = contactRepository.save(contact);
+                for(Address address : payload.getAddresses())
+                {
+                    address.setContact(newContact);
+                    addressRepository.save(address);
+                }
+
+
                 return new ApiResponse(true, newContact, BASE_CODE + "create.success");
             } catch (Exception e) {
                 e.printStackTrace();

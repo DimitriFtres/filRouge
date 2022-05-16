@@ -14,9 +14,9 @@ import java.sql.Date;
 @AllArgsConstructor
 public class SalaryCreatePayload {
     private String type;
-    private Date billing_date;
-    private Float amount;
-    private int periodicity;
+    private String billing_date;
+    private String amount;
+    private String periodicity;
     private Employee employee;
 
 }

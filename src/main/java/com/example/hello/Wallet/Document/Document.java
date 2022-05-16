@@ -4,6 +4,7 @@ import com.example.hello.Org_Empl.Employee.Employee;
 import com.example.hello.Org_Empl.Organization.Organization;
 import com.example.hello.Wallet.Transaction.Transaction;
 import com.example.hello.Wallet.Wallet.Wallet;
+import com.example.hello.fileManager.entity.UploadFile;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,14 +18,18 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class Document {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int document_id;
     @NotNull
     private String name;
     @NotNull
     private String description;
     private boolean free_access;
-    private String path;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_file_id", referencedColumnName = "file_id")
+    private UploadFile path;
+
     private String type;
 
     @ManyToOne
@@ -45,7 +50,7 @@ public class Document {
         private String name;
         private String description;
         private boolean free_access;
-        private String path;
+        private UploadFile path;
         private String type;
         private Employee employee;
         private Organization organization;
@@ -86,7 +91,7 @@ public class Document {
             return this;
         }
 
-        public Builder setPath(String path) {
+        public Builder setPath(UploadFile path) {
             this.path = path;
             return this;
         }

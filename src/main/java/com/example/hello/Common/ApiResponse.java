@@ -1,7 +1,10 @@
 package com.example.hello.Common;
 
+import lombok.Data;
+
 import java.util.StringJoiner;
 
+@Data
 public class ApiResponse {
     public boolean result;
     public Object data;

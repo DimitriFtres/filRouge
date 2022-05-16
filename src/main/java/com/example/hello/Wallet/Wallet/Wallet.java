@@ -16,7 +16,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class Wallet {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int wallet_id;
     private String name;
     private String description;

@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class TransactionCreatePayload {
     private String type;
-    private Float amount;
+    private String amount;
     private Wallet wallet;
     private Document document;
 

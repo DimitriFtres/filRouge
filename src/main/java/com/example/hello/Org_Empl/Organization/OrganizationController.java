@@ -19,7 +19,7 @@ public class OrganizationController {
         return new ApiResponse(true, organizationRepository.findAll(), BASE_CODE);
     }
 
-    @GetMapping("/organisation/{id}")
+    @GetMapping("/detail/{id}")
     public ApiResponse getOrganization(@PathVariable int id){
         return new ApiResponse(true, organizationRepository.findById(id), BASE_CODE);
     }
@@ -30,7 +30,8 @@ public class OrganizationController {
         Organization organization = new Organization.Builder()
                 .setName(payload.getName())
                 .setDescription(payload.getDescription())
-                .setActif(payload.isActif()).build();
+                .setActif(payload.isActif())
+                .setAddresses(payload.getAddresses()).build();
         Organization newOrganization = organizationRepository.save(organization);
         return new ApiResponse(true, newOrganization, BASE_CODE);
     }

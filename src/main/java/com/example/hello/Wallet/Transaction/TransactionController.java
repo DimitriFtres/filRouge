@@ -35,7 +35,7 @@ public class TransactionController {
 //                }
                 Transaction transaction = new Transaction.Builder()
                         .setType(payload.getType())
-                        .setAmount(payload.getAmount())
+                        .setAmount(Float.parseFloat(payload.getAmount()))
                         .setWallet(payload.getWallet()).build();
                 Transaction newtransaction = transactionRepository.save(transaction);
                 return new ApiResponse(true, newtransaction, BASE_CODE + "create.success");
@@ -54,7 +54,7 @@ public class TransactionController {
             Transaction transaction = new Transaction.Builder()
                     .setTransaction_id(payload.getTransaction_id())
                     .setType(payload.getType())
-                    .setAmount(payload.getAmount())
+                    .setAmount(Float.parseFloat(payload.getAmount()))
                     .setWallet(payload.getWallet()).build();
             Transaction newtransaction = transactionRepository.save(transaction);
             return new ApiResponse(true, newtransaction, BASE_CODE + "create.success");

@@ -5,6 +5,9 @@ import com.example.hello.Wallet.Document.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+
 @RestController
 @RequestMapping("salary")
 public class SalaryController {
@@ -35,9 +38,9 @@ public class SalaryController {
 //                }
                 Salary salary = new Salary.Builder()
                         .setType(payload.getType())
-                        .setBilling_date(payload.getBilling_date())
-                        .setAmount(payload.getAmount())
-                        .setPeriodicity(payload.getPeriodicity())
+                        .setBilling_date(new SimpleDateFormat("yyyy-MM-dd").parse(payload.getBilling_date()))
+                        .setAmount(Float.parseFloat(payload.getAmount()))
+                        .setPeriodicity(Integer.parseInt(payload.getPeriodicity()))
                         .setEmployee(payload.getEmployee()).build();
                 Salary newsalary = salaryRepository.save(salary);
                 return new ApiResponse(true, newsalary, BASE_CODE + "create.success");
@@ -56,9 +59,9 @@ public class SalaryController {
             Salary salary = new Salary.Builder()
                     .setSalary_id(payload.getSalary_id())
                     .setType(payload.getType())
-                    .setBilling_date(payload.getBilling_date())
-                    .setAmount(payload.getAmount())
-                    .setPeriodicity(payload.getPeriodicity())
+                    .setBilling_date(new SimpleDateFormat("yyyy-MM-dd").parse(payload.getBilling_date()))
+                    .setAmount(Float.parseFloat(payload.getAmount()))
+                    .setPeriodicity(Integer.parseInt(payload.getPeriodicity()))
                     .setEmployee(payload.getEmployee()).build();
             Salary newsalary = salaryRepository.save(salary);
             return new ApiResponse(true, newsalary, BASE_CODE + "create.success");

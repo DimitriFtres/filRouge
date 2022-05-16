@@ -18,6 +18,6 @@ public class ContactCreatePayload {
     private String lastname;
     private String email;
     private String phone;
-    private List<Address> addresses = new ArrayList<>();
+    private List<Address> addresses;
 
 }

@@ -12,10 +12,6 @@ public class DocumentController {
     @Autowired
     DocumentRepository documentRepository;
 
-
-
-
-
     @GetMapping("/list")
     public ApiResponse list(){
         return new ApiResponse(true,documentRepository.findAll(),BASE_CODE + "list.sucess");

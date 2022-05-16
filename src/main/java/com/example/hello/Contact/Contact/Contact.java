@@ -15,15 +15,16 @@ import java.util.List;
 @AllArgsConstructor
 public class Contact {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int contact_id;
     private String firstname;
     private String lastname;
     private String email;
     private String phone;
 
-    @OneToMany(targetEntity = Address.class)
-    private List<Address> addresses = new ArrayList<>();
+    @OneToMany(mappedBy = "contact")
+    private List<Address> addresses;
+
 
     public Contact(ContactUpdatePayload contact) {
         this.contact_id = contact.getContact_id();
@@ -41,7 +42,7 @@ public class Contact {
         private String lastname;
         private String email;
         private String phone;
-        private List<Address> addresses = new ArrayList<>();
+        private List<Address> addresses;
 
         public Builder setContact_id(int contact_id) {
             this.contact_id = contact_id;
@@ -68,7 +69,7 @@ public class Contact {
             return this;
         }
 
-        public Builder setAddresses(List<Address> addresses) {
+        public Builder setAddress(List<Address> addresses) {
             this.addresses = addresses;
             return this;
         }

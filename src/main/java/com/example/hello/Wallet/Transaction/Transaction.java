@@ -16,7 +16,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class Transaction {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int transaction_id;
     private String type;
     private Float amount;

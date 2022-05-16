@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class Credential {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long credential_id;
+    private int credential_id;
     @Column(unique = true)
     private String username;
     private String password;

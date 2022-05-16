@@ -2,6 +2,8 @@ package com.example.hello.Org_Empl.Employee;
 
 import com.example.hello.Auth.Account.Account;
 import com.example.hello.Common.ApiResponse;
+import com.example.hello.Org_Empl.Address.Address;
+import com.example.hello.Org_Empl.Address.AddressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,10 +14,8 @@ public class EmployeeController {
 
     @Autowired
     EmployeeRepository employeeRepository;
-
-
-
-
+    @Autowired
+    AddressRepository addressRepository;
 
     @GetMapping("/list")
     public ApiResponse list(){
@@ -37,8 +37,15 @@ public class EmployeeController {
                         .setRole(payload.getRole())
                         .setAccount(payload.getAccount())
                         .setActif(payload.isActif())
+                        .setAddress(payload.getAddresses())
                         .setOrganization(payload.getOrganization()).build();
                 Employee newEmployee = employeeRepository.save(employee);
+
+                for(Address address : payload.getAddresses())
+                {
+                    address.setEmployee(newEmployee);
+                    addressRepository.save(address);
+                }
                 return new ApiResponse(true, newEmployee, BASE_CODE + "create.success");
             } catch (Exception e) {
                 e.printStackTrace();

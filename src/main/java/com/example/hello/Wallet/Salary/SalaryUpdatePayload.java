@@ -14,8 +14,8 @@ import java.sql.Date;
 public class SalaryUpdatePayload {
     private int salary_id;
     private String type;
-    private Date billing_date;
-    private Float amount;
-    private int periodicity;
+    private String billing_date;
+    private String amount;
+    private String periodicity;
     private Employee employee;
 }
